@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{test/layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Liste des Employés</title>
+  <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div layout:fragment="test">
+    <div class="container">
+      <h1>Liste des Employés</h1>
+      <ul>
+        <li th:each="employee : ${listEmployees}" th:text="${employee.nomEmp}"></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

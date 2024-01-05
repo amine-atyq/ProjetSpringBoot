@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{shared/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Voir le Département</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<div layout:fragment="container" class="container mt-4">
+    <div class="card col-md-8 mx-auto">
+        <div class="card-header">
+            <h5 class="d-inline">Employés du Département:</h5>
+            <h5 class="card-title d-inline" th:text="${department.nomDept}"></h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped mt-3">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Salaire</th>
+                    <th>Age</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="employee : ${employees}">
+                    <td th:text="${employee.idEmp}"></td>
+                    <td th:text="${employee.nomEmp}"></td>
+                    <td th:text="${employee.salaire}"></td>
+                    <td th:text="${employee.age}"></td>
+                    <td>
+                        <form th:action="@{/employees/delete/{id}(id=${employee.idEmp})}" method="post" class="d-inline">
+                            <input type="hidden" name="_method" value="delete" />
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr?')">Supprimer</button>
+                        </form>
+                        <a class="btn btn-success" th:href="@{/employees/edit(id=${employee.idEmp})}">Modifier</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <a th:href="@{/departements}" class="btn btn-primary">Retour à la liste</a>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

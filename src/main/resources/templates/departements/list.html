@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{shared/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Départements</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css">
+</head>
+<body>
+<div layout:fragment="container" class="container mt-4">
+    <div class="card col-md-8 mx-auto">
+        <div class="card-header">Liste des Départements</div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped mt-3">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom du Département</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="departement : ${departements}">
+                        <td th:text="${departement.idDept}"></td>
+                        <td th:text="${departement.nomDept}"></td>
+                        <td class="table-actions">
+                            <a th:href="@{'/departements/view/' + ${departement.idDept}}" class="btn btn-info btn-sm">
+                                <i class="bi bi-eye"></i> View
+                            </a>
+                            <a th:href="@{'/departements/edit/' + ${departement.idDept}}" class="btn btn-warning btn-sm">
+                                <i class="bi bi-pencil"></i> Edit
+                            </a>
+                            <a th:href="@{'/departements/delete/' + ${departement.idDept}}" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

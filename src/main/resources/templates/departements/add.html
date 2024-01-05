@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{shared/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter un Département</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<div layout:fragment="container" class="container mt-4">
+    <div class="card col-md-4 mx-auto">
+        <div class="card-header">Ajouter un Département</div>
+        <div class="card-body">
+            <form th:action="@{/departements/add}" method="post">
+                <div class="mb-3">
+                    <label for="nomDept" class="form-label">Nom du Département</label>
+                    <input type="text" class="form-control" id="nomDept" name="nomDept" required>
+                </div>
+                <!-- Add additional form fields as needed -->
+
+                <div class="d-flex justify-content-between align-items-center mt-3"> <!-- Use flexbox for button alignment -->
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                    <a href="/departements" class="btn btn-secondary">Retour à la liste</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
