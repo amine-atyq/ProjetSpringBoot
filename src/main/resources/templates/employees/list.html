@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{shared/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Employés</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css">
+</head>
+<body>
+<div layout:fragment="container">
+    <div class="container mt-2">
+        <div class="card">
+            <div class="card-header">Liste des Employés</div>
+            <div class="card-body">
+                <form method="get" th:action="@{/employees/list}">
+                    <label for="keyword" class="form-label">Mot-clé</label>
+                    <input type="text" id="keyword" name="keyword" th:value="${keyword}">
+                    <label for="departmentId" class="form-label ms-2">Département</label>
+                    <select id="departmentId" name="departmentId" class="form-select">
+                        <option value="" th:selected="${selectedDepartmentId eq null}">Tous les départements</option>
+                        <option th:each="dept : ${departments}"
+                                th:value="${dept.idDept}"
+                                th:text="${dept.nomDept}"
+                                th:selected="${dept.idDept == selectedDepartmentId}"></option>
+                    </select>
+                    <button type="submit" class="btn btn-primary ms-2">Chercher</button>
+                </form>
+                <table class="table table-striped mt-3">
+                    <thead>
+                    <tr>
+                        <th>ID</th><th>Nom</th><th>Salaire</th><th>Age</th><th>Département</th><th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="emp:${listEmployees}">
+                        <td th:text="${emp.idEmp}"></td>
+                        <td th:text="${emp.nomEmp}"></td>
+                        <td th:text="${emp.salaire}"></td>
+                        <td th:text="${emp.age}"></td>
+                        <td th:text="${emp.departement.nomDept}"></td>
+                        <td>
+                            <form th:action="@{/employees/delete/{id}(id=${emp.idEmp})}" method="post" class="d-inline">
+                                <input type="hidden" name="_method" value="delete" />
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr?')">Supprimer</button>
+                            </form>
+                            <a class="btn btn-success" th:href="@{/employees/edit(id=${emp.idEmp})}">Modifier</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
